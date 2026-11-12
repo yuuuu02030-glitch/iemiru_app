@@ -16,6 +16,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/houses").permitAll()
                         .requestMatchers(HttpMethod.POST, "/reservations").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                         );
 
