@@ -1,3 +1,5 @@
+SET NAMES utf8mb4;
+
 INSERT INTO login(login_id, password, role)
     VALUES('staff', '$2y$10$/5Wcl67cw4G9QR4LZdJiM.xjzpRhCDsGMooqBCHFS/WyvBraPBIOW', '一般職'),
           ('manager', '$2y$10$sfewZV5E2UBd208mExUh2u4wkPgiBcRqliHnZYVtgl3m4zQAbETDW', '管理職');

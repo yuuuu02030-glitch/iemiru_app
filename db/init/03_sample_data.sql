@@ -1,5 +1,7 @@
 -- 動作確認用のサンプルデータ（架空の人物です)
 
+SET NAMES utf8mb4;
+
 INSERT INTO customers(name, address, phone, build_type, build_timing, build_area, visit_reason)
     VALUES('山田太郎', '岩手県奥州市', '11122223333', '新築', '1年以内', '奥州市 水沢方面', 'Web'),
           ('菊池花子', '岩手県盛岡市', '22233334444', '建て替え', '半年以内', NULL, NULL),

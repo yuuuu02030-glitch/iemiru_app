@@ -1,3 +1,5 @@
+SET NAMES utf8mb4;
+
 CREATE TABLE login (
     login_id VARCHAR(30) PRIMARY KEY,
     password VARCHAR(70) NOT NULL,
