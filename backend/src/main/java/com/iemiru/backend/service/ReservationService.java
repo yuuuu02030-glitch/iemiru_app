@@ -6,11 +6,14 @@ import com.iemiru.backend.entity.Customer;
 import com.iemiru.backend.entity.House;
 import com.iemiru.backend.entity.Reservation;
 import com.iemiru.backend.entity.VisitRecord;
+import com.iemiru.backend.exception.BusinessException;
 import com.iemiru.backend.repository.*;
 import com.iemiru.backend.repository.HouseRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,6 +41,8 @@ public class ReservationService {
 
     @Transactional
     public ReservationResponse create(ReservationRequest request) {
+
+        validateVisitDatetime(request.getVisitDatetime());
 
         Customer customer = new Customer();
         customer.setName(request.getName());
@@ -69,6 +74,29 @@ public class ReservationService {
 
         return new ReservationResponse(receptionNo,
                 saveReservation.getVisitDatetime());
+
+    }
+
+    private void validateVisitDatetime (LocalDateTime visitDatetime ) {
+
+        LocalDate visitDate =visitDatetime.toLocalDate();
+        LocalDate today = LocalDate.now();
+
+        if (!visitDate.isAfter(today)) {
+            throw new BusinessException("visitDatetime", "来場日は翌日以降を選択してください");
+        }
+
+        if (visitDate.getDayOfWeek() == DayOfWeek.WEDNESDAY) {
+            throw new BusinessException("visitDatetime", "水曜日は定休日のため選択できません");
+        }
+
+        List<Integer> allowedHours = List.of(10, 11, 13, 14, 15, 16);
+        if (!allowedHours.contains(visitDatetime.getHour())
+                    || visitDatetime.getMinute() != 0
+                    || visitDatetime.getSecond() != 0) {
+
+            throw new BusinessException("visitDatetime", "時間を正しく選択してください");
+        }
     }
 
     private String createReceptionNo (LocalDateTime visitDatetime) {

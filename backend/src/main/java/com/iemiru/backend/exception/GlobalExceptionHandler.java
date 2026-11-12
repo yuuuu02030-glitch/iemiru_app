@@ -28,4 +28,17 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<Map<String, Object>> handleBusiness(BusinessException ex) {
+
+        Map<String, String> errors = new LinkedHashMap<>();
+        errors.put(ex.getField(), ex.getMessage());   // 項目名とエラー文を、ex から取り出す
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("message", "入力内容に誤りがあります");
+        body.put("errors", errors);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
 }
