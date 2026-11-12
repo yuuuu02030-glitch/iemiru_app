@@ -17,6 +17,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/houses").permitAll()
                         .requestMatchers(HttpMethod.POST, "/reservations").permitAll()
                         .requestMatchers(HttpMethod.POST, "/visit-records/verify").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/visit-records").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                         );
