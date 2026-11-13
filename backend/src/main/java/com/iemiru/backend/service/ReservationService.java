@@ -123,10 +123,10 @@ public class ReservationService {
         for (Reservation reservation : reservations) {
             Customer customer = customerRepository.findById(reservation.getCustomerId()).orElseThrow();
             items.add(new ReservationListItem(
-                    reservation.getReservationId(),   // reservationId
-                    customer.getCustomerId(),   // customerId
-                    reservation.getVisitDatetime(),   // visitDatetime
-                    customer.getName()    // name
+                    reservation.getReservationId(),
+                    customer.getCustomerId(),
+                    reservation.getVisitDatetime(),
+                    customer.getName()
         ));
         }
         return items;
