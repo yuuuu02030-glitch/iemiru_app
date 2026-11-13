@@ -1,11 +1,13 @@
 package com.iemiru.backend.controller;
 
+import com.iemiru.backend.dto.CustomerRequest;
+import com.iemiru.backend.dto.CustomerResponse;
 import com.iemiru.backend.dto.CustomerSummaryResponse;
 import com.iemiru.backend.service.CustomerService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CustomerController {
@@ -21,5 +23,9 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.findSummary(id));
     }
 
-
+    @PostMapping("/customers")
+    public ResponseEntity<CustomerResponse> create(@Valid @RequestBody CustomerRequest request) {
+        CustomerResponse response = customerService.create(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 }
