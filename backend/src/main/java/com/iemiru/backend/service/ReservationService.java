@@ -1,5 +1,6 @@
 package com.iemiru.backend.service;
 
+import com.iemiru.backend.dto.ReservationListItem;
 import com.iemiru.backend.dto.ReservationRequest;
 import com.iemiru.backend.dto.ReservationResponse;
 import com.iemiru.backend.entity.Customer;
@@ -110,4 +111,24 @@ public class ReservationService {
             return receptionNo;
     }
 
+    public List<ReservationListItem> findByDate(LocalDate date) {
+
+        LocalDateTime start = date.atStartOfDay();
+        LocalDateTime end = date.atTime(23, 59, 59);
+
+        List<Reservation> reservations =
+                reservationRepository.findByVisitDatetimeBetweenOrderByVisitDatetimeAsc(start, end);
+
+        List<ReservationListItem> items = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            Customer customer = customerRepository.findById(reservation.getCustomerId()).orElseThrow();
+            items.add(new ReservationListItem(
+                    reservation.getReservationId(),   // reservationId
+                    customer.getCustomerId(),   // customerId
+                    reservation.getVisitDatetime(),   // visitDatetime
+                    customer.getName()    // name
+        ));
+        }
+        return items;
+    }
 }
