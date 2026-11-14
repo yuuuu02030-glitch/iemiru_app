@@ -9,6 +9,9 @@ import com.iemiru.backend.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CustomerService {
 
@@ -50,6 +53,13 @@ public class CustomerService {
                 customer.getBuildArea(),
                 customer.getVisitReason()
         );
+    }
 
+    public List<CustomerResponse> findAll() {
+        List<CustomerResponse> items = new ArrayList<>();
+        for (Customer customer : customerRepository.findByOrderByCreatedAtDesc()) {
+            items.add(new CustomerResponse(customer.getCustomerId(), customer.getName(), customer.getAddress(), customer.getPhone()));
+        }
+        return items;
     }
 }
