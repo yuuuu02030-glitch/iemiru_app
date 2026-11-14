@@ -15,4 +15,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     List<Reservation> findByVisitDatetimeBetweenOrderByVisitDatetimeAsc(LocalDateTime start, LocalDateTime end);
 
+    Optional<Reservation> findFirstByCustomerIdOrderByVisitDatetimeDesc(Integer customerId);
+
 }

@@ -28,13 +28,14 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(HttpMethod.POST,"/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/customers").hasAuthority("管理職")
+                        .requestMatchers(HttpMethod.GET, "/customers/*").hasAuthority("管理職")
                         .anyRequest().authenticated()
                         )
 
                 .exceptionHandling(ex -> ex
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
-                // ② ログアウト：POST /logout で番号札を無効にして、200 を返す
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))

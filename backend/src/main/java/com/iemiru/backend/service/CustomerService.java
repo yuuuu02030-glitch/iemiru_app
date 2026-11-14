@@ -1,24 +1,40 @@
 package com.iemiru.backend.service;
 
-import com.iemiru.backend.dto.CustomerRequest;
-import com.iemiru.backend.dto.CustomerResponse;
-import com.iemiru.backend.dto.CustomerSummaryResponse;
+import com.iemiru.backend.dto.*;
 import com.iemiru.backend.entity.Customer;
+import com.iemiru.backend.entity.House;
+import com.iemiru.backend.entity.Reservation;
+import com.iemiru.backend.entity.VisitRecord;
 import com.iemiru.backend.exception.NotFoundException;
 import com.iemiru.backend.repository.CustomerRepository;
+import com.iemiru.backend.repository.HouseRepository;
+import com.iemiru.backend.repository.ReservationRepository;
+import com.iemiru.backend.repository.VisitRecordRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final ReservationRepository reservationRepository;
+    private final VisitRecordRepository visitRecordRepository;
+    private final HouseRepository houseRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository,
+                           ReservationRepository reservationRepository,
+                           VisitRecordRepository visitRecordRepository,
+                           HouseRepository houseRepository) {
         this.customerRepository = customerRepository;
+        this.reservationRepository = reservationRepository;
+        this.visitRecordRepository = visitRecordRepository;
+        this.houseRepository = houseRepository;
     }
 
     @Transactional
@@ -62,4 +78,44 @@ public class CustomerService {
         }
         return items;
     }
+
+    public CustomerDetailResponse findDetail(Integer id) {
+
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("お客様の情報が見つかりません"));
+
+        LocalDateTime visitDatetime = null;
+        List<VisitRecordItem> items = new ArrayList<>();
+
+        Optional<Reservation> reservation = reservationRepository.findFirstByCustomerIdOrderByVisitDatetimeDesc(customer.getCustomerId());
+        if (reservation.isPresent()) {
+            Reservation r = reservation.get();
+            visitDatetime = r.getVisitDatetime();
+
+            List<VisitRecord> records = visitRecordRepository.findByReservationIdOrderByHouseIdAsc(r.getReservationId());
+            for (VisitRecord record : records)  {
+                House house = houseRepository.findById(record.getHouseId()).orElseThrow();
+                items.add(new VisitRecordItem(
+                        record.getHouseId(),
+                        house.getCompanyName(),
+                        house.getHouseName(),
+                        record.getWish(),
+                        record.getVisited(),
+                        record.getFavorite()
+                ));
+            }
+        }
+
+        return new CustomerDetailResponse(customer.getCustomerId(),
+                customer.getName(),
+                customer.getAddress(),
+                customer.getPhone(),
+                customer.getBuildType(),
+                customer.getBuildTiming(),
+                customer.getBuildArea(),
+                customer.getVisitReason(),
+                visitDatetime,
+                items);
+    }
+
 }

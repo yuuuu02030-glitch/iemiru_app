@@ -1,5 +1,6 @@
 package com.iemiru.backend.controller;
 
+import com.iemiru.backend.dto.CustomerDetailResponse;
 import com.iemiru.backend.dto.CustomerRequest;
 import com.iemiru.backend.dto.CustomerResponse;
 import com.iemiru.backend.dto.CustomerSummaryResponse;
@@ -34,5 +35,10 @@ public class CustomerController {
     @GetMapping("/customers")
     public ResponseEntity<List<CustomerResponse>> findAll() {
         return ResponseEntity.ok(customerService.findAll());
+    }
+
+    @GetMapping("/customers/{id}")
+    public ResponseEntity<CustomerDetailResponse> findDetail(@PathVariable Integer id) {
+        return ResponseEntity.ok(customerService.findDetail(id));
     }
 }
