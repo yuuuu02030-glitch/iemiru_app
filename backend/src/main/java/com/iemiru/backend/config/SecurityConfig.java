@@ -29,6 +29,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/customers").hasAuthority("管理職")
                         .requestMatchers(HttpMethod.GET, "/customers/*").hasAuthority("管理職")
+                        .requestMatchers(HttpMethod.PUT, "/customers/*").hasAuthority("管理職")
+                        .requestMatchers(HttpMethod.DELETE, "/customers/*").hasAuthority("管理職")
                         .anyRequest().authenticated()
                         )
 

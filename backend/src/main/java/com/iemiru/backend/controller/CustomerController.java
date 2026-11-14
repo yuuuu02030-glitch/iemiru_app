@@ -1,9 +1,6 @@
 package com.iemiru.backend.controller;
 
-import com.iemiru.backend.dto.CustomerDetailResponse;
-import com.iemiru.backend.dto.CustomerRequest;
-import com.iemiru.backend.dto.CustomerResponse;
-import com.iemiru.backend.dto.CustomerSummaryResponse;
+import com.iemiru.backend.dto.*;
 import com.iemiru.backend.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -40,5 +37,18 @@ public class CustomerController {
     @GetMapping("/customers/{id}")
     public ResponseEntity<CustomerDetailResponse> findDetail(@PathVariable Integer id) {
         return ResponseEntity.ok(customerService.findDetail(id));
+    }
+
+    @PutMapping("/customers/{id}")
+    public ResponseEntity<CustomerResponse> update(@PathVariable Integer id,
+                                                   @Valid @RequestBody CustomerRequest request) {
+        CustomerResponse response = customerService.update(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/customers/{id}")
+    public ResponseEntity<MessageResponse> delete(@PathVariable Integer id) {
+        return ResponseEntity.ok(customerService.delete(id));
+
     }
 }

@@ -118,4 +118,33 @@ public class CustomerService {
                 items);
     }
 
+    public CustomerResponse update(Integer id, CustomerRequest request) {
+
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("お客様の情報が見つかりません"));;
+
+        customer.setName(request.getName());
+        customer.setAddress(request.getAddress());
+        customer.setPhone(request.getPhone());
+        customer.setBuildType(request.getBuildType());
+        customer.setBuildTiming(request.getBuildTiming());
+        customer.setBuildArea(request.getBuildArea());
+        customer.setVisitReason(request.getVisitReason());
+        Customer saveCustomer = customerRepository.save(customer);
+
+        return new CustomerResponse(saveCustomer.getCustomerId(),
+                saveCustomer.getName(),
+                saveCustomer.getAddress(),
+                saveCustomer.getPhone());
+    }
+
+    public MessageResponse delete(Integer id) {
+
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("お客様の情報が見つかりません"));;
+
+        customerRepository.delete(customer);
+
+        return new MessageResponse("顧客情報を削除しました");
+    }
 }
