@@ -1,0 +1,21 @@
+.header {
+  height: 50px;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.back {
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  padding-left: 16px;
+  padding-right: 10px;
+}
+
+.title {
+  margin: 0;
+  color: #fff;
+  font-size: 15px;
+}
