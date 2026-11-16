@@ -35,7 +35,33 @@
   background: #fff;
 }
 
+.field p {
+  margin: 0;
+}
+
 .form h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
+}
+
+.timeSlot {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.timeSlot button {
+  flex: 1;
+  height: 40px;
+  border-radius: 30px;
+  border: 1px solid var(--navy);
+  background: white;
+  text-align: center;
+  color: #2e3a46;
+}
+
+.timeSlot button.selected {
+  background: rgb(224 106 16 / 0.5);
+  color: #2e3a46;
+  border-color: #2e3a46;
 }

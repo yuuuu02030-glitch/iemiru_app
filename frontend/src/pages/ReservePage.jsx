@@ -105,6 +105,7 @@ function ReservePage() {
               </label>
             ))}
           </section>
+
           <section>
             <h2>来場日時</h2>
             {errors.visitDatetime && <p>{errors.visitDatetime}</p>}
@@ -117,18 +118,20 @@ function ReservePage() {
                 onChange={(e) => setVisitDate(e.target.value)}
               />
             </label>
-
-            <div>
+            <div className={styles.field}>
               <p>時間帯</p>
-              {TIME_SLOTS.map((time) => (
-                <button
-                  key={time}
-                  type="button"
-                  onClick={() => setVisitTime(time)}
-                >
-                  {time}
-                </button>
-              ))}
+              <div className={styles.timeSlot}>
+                {TIME_SLOTS.map((time) => (
+                  <button
+                    key={time}
+                    type="button"
+                    onClick={() => setVisitTime(time)}
+                    className={visitTime === time ? styles.selected : ""}
+                  >
+                    {time}
+                  </button>
+                ))}
+              </div>
             </div>
           </section>
 
