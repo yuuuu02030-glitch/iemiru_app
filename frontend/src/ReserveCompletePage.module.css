@@ -1,0 +1,74 @@
+/* ===== 全体 ===== */
+.main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 40px 25px;
+  text-align: center;
+  /* ③ 縦に積む */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ===== チェックマーク ===== */
+.checkIcon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto;
+  border: 3px solid var(--navy);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.message {
+  margin: 4px 0 0;
+  font-size: 18px;
+}
+
+/* ===== 受付番号の箱（④ カード） ===== */
+.receptionBox {
+  background: #f1f0ed;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.receptionLabel {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.receptionNo {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.datetime {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* ===== 注意書き ===== */
+.note {
+  margin: 0;
+  background: #f1f0ed;
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--text-sub);
+  text-align: left;
+}
+
+/* ===== トップへ戻る ===== */
+.backLink {
+  align-self: flex-start;
+  font-size: 13px;
+}

@@ -1,0 +1,31 @@
+/* ===== ボタン（共通の形） ===== */
+.primaryButton,
+.secondaryButton {
+  height: 45px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primaryButton {
+  background: var(--orange);
+  color: #fff;
+  border: 2px solid var(--orange);
+}
+
+.primaryButton:hover {
+  background: var(--orange-hover);
+  border-color: var(--orange-hover);
+}
+
+.secondaryButton {
+  background: #fff;
+  color: var(--navy);
+  border: 2px solid var(--navy);
+}
