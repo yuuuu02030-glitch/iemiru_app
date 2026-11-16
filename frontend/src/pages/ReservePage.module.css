@@ -99,3 +99,9 @@
   background: white;
   color: var(--navy);
 }
+
+.error {
+  color: var(--error);
+  font-size: 12px;
+  margin: 0;
+}

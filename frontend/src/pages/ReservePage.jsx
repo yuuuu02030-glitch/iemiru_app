@@ -29,6 +29,7 @@ function ReservePage() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const isAllSelected = houses.length > 0 && houseIds.length === houses.length;
 
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -50,6 +51,14 @@ function ReservePage() {
       setHouseIds(houseIds.filter((h) => h !== id));
     } else {
       setHouseIds([...houseIds, id]);
+    }
+  };
+
+  const toggleAll = () => {
+    if (isAllSelected) {
+      setHouseIds([]);
+    } else {
+      setHouseIds(houses.map((h) => h.houseId));
     }
   };
 
@@ -90,14 +99,13 @@ function ReservePage() {
             <div className={styles.sectionHead}>
               <h2>見たい棟を選ぶ</h2>
 
-              <button
-                type="button"
-                onClick={() => setHouseIds(houses.map((h) => h.houseId))}
-              >
-                すべて選択
+              <button type="button" onClick={toggleAll}>
+                {isAllSelected ? "すべて解除" : "すべて選択"}
               </button>
             </div>
-            {errors.houseIds && <p>{errors.houseIds}</p>}
+            {errors.houseIds && (
+              <p className={styles.error}>{errors.houseIds}</p>
+            )}
             <div className={styles.houseList}>
               {houses.map((house) => (
                 <label
@@ -118,7 +126,9 @@ function ReservePage() {
 
           <section>
             <h2>来場日時</h2>
-            {errors.visitDatetime && <p>{errors.visitDatetime}</p>}
+            {errors.visitDatetime && (
+              <p className={styles.error}>{errors.visitDatetime}</p>
+            )}
             <label className={styles.field}>
               来場日
               <input
@@ -149,7 +159,7 @@ function ReservePage() {
             <h2>お客様情報</h2>
             <label className={styles.field}>
               氏名（必須）
-              {errors.name && <p>{errors.name}</p>}
+              {errors.name && <p className={styles.error}>{errors.name}</p>}
               <input
                 type="text"
                 name="name"
@@ -161,7 +171,9 @@ function ReservePage() {
 
             <label className={styles.field}>
               住所（必須）
-              {errors.address && <p>{errors.address}</p>}
+              {errors.address && (
+                <p className={styles.error}>{errors.address}</p>
+              )}
               <input
                 type="text"
                 name="address"
@@ -173,7 +185,7 @@ function ReservePage() {
 
             <label className={styles.field}>
               電話番号（必須）
-              {errors.phone && <p>{errors.phone}</p>}
+              {errors.phone && <p className={styles.error}>{errors.phone}</p>}
               <input
                 type="tel"
                 name="phone"
@@ -188,7 +200,9 @@ function ReservePage() {
             <h2>アンケート</h2>
             <label className={styles.field}>
               建築区分（必須）
-              {errors.buildType && <p>{errors.buildType}</p>}
+              {errors.buildType && (
+                <p className={styles.error}>{errors.buildType}</p>
+              )}
               <select
                 name="buildType"
                 value={form.buildType}
@@ -205,7 +219,9 @@ function ReservePage() {
 
             <label className={styles.field}>
               建築時期（必須）
-              {errors.buildTiming && <p>{errors.buildTiming}</p>}
+              {errors.buildTiming && (
+                <p className={styles.error}>{errors.buildTiming}</p>
+              )}
               <select
                 name="buildTiming"
                 value={form.buildTiming}
@@ -252,7 +268,7 @@ function ReservePage() {
             予約する
           </button>
         </form>
-        {message && <p>{message}</p>}
+        {message && <p className={styles.error}>{message}</p>}
         <Link to="/">戻る</Link>
       </main>
     </>
