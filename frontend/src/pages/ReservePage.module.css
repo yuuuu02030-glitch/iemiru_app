@@ -1,0 +1,41 @@
+/* ===== 全体 ===== */
+.main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field input,
+.field select {
+  height: 45px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.form h2 {
+  margin: 0;
+  font-size: 16px;
+}

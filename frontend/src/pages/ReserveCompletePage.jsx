@@ -1,7 +1,7 @@
 import { Navigate, useLocation, Link } from "react-router";
 import { formatDatetime } from "../utils/formatDate";
 import CustomerHeader from "../components/CustomerHeader";
-import styles from "../ReserveCompletePage.module.css";
+import styles from "./ReserveCompletePage.module.css";
 import common from "../style/common.module.css";
 
 function ReserveCompletePage() {

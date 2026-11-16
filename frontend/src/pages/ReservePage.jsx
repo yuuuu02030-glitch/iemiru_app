@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import CustomerHeader from "../components/CustomerHeader";
+import { Link, useNavigate } from "react-router";
 import {
   BUILD_TIMINGS,
   BUILD_TYPES,
   VISIT_REASONS,
   TIME_SLOTS,
 } from "../constants/surveyOptions";
-import { Link, useNavigate } from "react-router";
+import styles from "./ReservePage.module.css";
+import common from "../style/common.module.css";
 
 function ReservePage() {
   const [form, setForm] = useState({
@@ -81,8 +83,8 @@ function ReservePage() {
     <>
       <CustomerHeader title={"来場予約"} backTo={"/"} />
 
-      <main>
-        <form onSubmit={handleSubmit}>
+      <main className={styles.main}>
+        <form onSubmit={handleSubmit} className={styles.form}>
           <section>
             <h2>見たい棟を選ぶ</h2>
             {errors.houseIds && <p>{errors.houseIds}</p>}
@@ -106,7 +108,7 @@ function ReservePage() {
           <section>
             <h2>来場日時</h2>
             {errors.visitDatetime && <p>{errors.visitDatetime}</p>}
-            <label>
+            <label className={styles.field}>
               来場日
               <input
                 type="date"
@@ -115,6 +117,7 @@ function ReservePage() {
                 onChange={(e) => setVisitDate(e.target.value)}
               />
             </label>
+
             <div>
               <p>時間帯</p>
               {TIME_SLOTS.map((time) => (
@@ -128,9 +131,10 @@ function ReservePage() {
               ))}
             </div>
           </section>
+
           <section>
             <h2>お客様情報</h2>
-            <label>
+            <label className={styles.field}>
               氏名（必須）
               {errors.name && <p>{errors.name}</p>}
               <input
@@ -141,7 +145,8 @@ function ReservePage() {
                 placeholder="例）山田太郎"
               />
             </label>
-            <label>
+
+            <label className={styles.field}>
               住所（必須）
               {errors.address && <p>{errors.address}</p>}
               <input
@@ -152,7 +157,8 @@ function ReservePage() {
                 placeholder="例）〇〇市〇〇町（市区町村まででも可）"
               />
             </label>
-            <label>
+
+            <label className={styles.field}>
               電話番号（必須）
               {errors.phone && <p>{errors.phone}</p>}
               <input
@@ -163,8 +169,11 @@ function ReservePage() {
                 placeholder="例）09012345678（ハイフンなし）"
               />
             </label>
+          </section>
+
+          <section>
             <h2>アンケート</h2>
-            <label>
+            <label className={styles.field}>
               建築区分（必須）
               {errors.buildType && <p>{errors.buildType}</p>}
               <select
@@ -180,7 +189,8 @@ function ReservePage() {
                 ))}
               </select>
             </label>
-            <label>
+
+            <label className={styles.field}>
               建築時期（必須）
               {errors.buildTiming && <p>{errors.buildTiming}</p>}
               <select
@@ -196,7 +206,8 @@ function ReservePage() {
                 ))}
               </select>
             </label>
-            <label>
+
+            <label className={styles.field}>
               建築予定地（任意）
               <input
                 type="text"
@@ -208,7 +219,7 @@ function ReservePage() {
               />
             </label>
 
-            <label>
+            <label className={styles.field}>
               来場動機（任意）
               <select
                 name="visitReason"
@@ -224,19 +235,9 @@ function ReservePage() {
               </select>
             </label>
           </section>
-          <pre>
-            {JSON.stringify(
-              {
-                ...form,
-                houseIds,
-                visitDatetime: `${visitDate}T${visitTime}:00`,
-              },
-              null,
-              2,
-            )}
-          </pre>
-
-          <button type="submit">予約する</button>
+          <button type="submit" className={common.primaryButton}>
+            予約する
+          </button>
         </form>
         {message && <p>{message}</p>}
         <Link to="/">戻る</Link>
