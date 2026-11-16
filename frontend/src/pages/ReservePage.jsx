@@ -9,6 +9,7 @@ import {
 } from "../constants/surveyOptions";
 import styles from "./ReservePage.module.css";
 import common from "../style/common.module.css";
+import { houseColor } from "../constants/houseColor";
 
 function ReservePage() {
   const [form, setForm] = useState({
@@ -86,24 +87,33 @@ function ReservePage() {
       <main className={styles.main}>
         <form onSubmit={handleSubmit} className={styles.form}>
           <section>
-            <h2>見たい棟を選ぶ</h2>
+            <div className={styles.sectionHead}>
+              <h2>見たい棟を選ぶ</h2>
+
+              <button
+                type="button"
+                onClick={() => setHouseIds(houses.map((h) => h.houseId))}
+              >
+                すべて選択
+              </button>
+            </div>
             {errors.houseIds && <p>{errors.houseIds}</p>}
-            <button
-              type="button"
-              onClick={() => setHouseIds(houses.map((h) => h.houseId))}
-            >
-              すべて選択
-            </button>
-            {houses.map((house) => (
-              <label key={house.houseId}>
-                <input
-                  type="checkbox"
-                  checked={houseIds.includes(house.houseId)}
-                  onChange={() => toggleHouse(house.houseId)}
-                />
-                No.{house.houseId} {house.companyName}
-              </label>
-            ))}
+            <div className={styles.houseList}>
+              {houses.map((house) => (
+                <label
+                  key={house.houseId}
+                  className={styles.houseCard}
+                  style={{ "--house-color": houseColor[house.houseId] }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={houseIds.includes(house.houseId)}
+                    onChange={() => toggleHouse(house.houseId)}
+                  />
+                  No.{house.houseId} {house.companyName}
+                </label>
+              ))}
+            </div>
           </section>
 
           <section>

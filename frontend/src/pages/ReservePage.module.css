@@ -1,4 +1,3 @@
-/* ===== 全体 ===== */
 .main {
   max-width: 480px;
   margin: 0 auto;
@@ -64,4 +63,39 @@
   background: rgb(224 106 16 / 0.5);
   color: #2e3a46;
   border-color: #2e3a46;
+}
+
+.houseList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.houseCard {
+  background: white;
+  border: 1px solid var(--house-color);
+  border-radius: var(--radius);
+  padding: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.houseCard input {
+  accent-color: var(--orange);
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sectionHead button {
+  height: 32px;
+  border-radius: 30px;
+  border: 1px solid var(--navy);
+  background: white;
+  color: var(--navy);
 }
