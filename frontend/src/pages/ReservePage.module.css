@@ -83,7 +83,7 @@
 }
 
 .houseCard input {
-  accent-color: var(--orange);
+  accent-color: rgb(224 106 16 / 0.5);
 }
 
 .sectionHead {
