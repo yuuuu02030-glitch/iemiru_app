@@ -29,6 +29,7 @@ function ReservePage() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const isAllSelected = houses.length > 0 && houseIds.length === houses.length;
 
   const tomorrow = new Date();
@@ -65,6 +66,12 @@ function ReservePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (submitting) return;
+
+    setSubmitting(true);
+    setMessage("");
+    setErrors({});
+
     const body = {
       ...form,
       buildArea: form.buildArea || null,
@@ -74,18 +81,24 @@ function ReservePage() {
         visitDate && visitTime ? `${visitDate}T${visitTime}:00` : null,
     };
 
-    const res = await fetch("/api/reservations", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    const data = await res.json();
+    try {
+      const res = await fetch("/api/reservations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
 
-    if (res.ok) {
-      navigate("/reserve/complete", { state: data });
-    } else {
-      setMessage(data.message);
-      setErrors(data.errors || {});
+      if (res.ok) {
+        navigate("/reserve/complete", { state: data });
+      } else {
+        setMessage(data.message);
+        setErrors(data.errors || {});
+      }
+    } catch {
+      setMessage("通信に失敗しました。時間をおいてもう一度お試しください");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -264,8 +277,12 @@ function ReservePage() {
               </select>
             </label>
           </section>
-          <button type="submit" className={common.primaryButton}>
-            予約する
+          <button
+            type="submit"
+            className={common.primaryButton}
+            disabled={submitting}
+          >
+            {submitting ? "送信中..." : "予約する"}
           </button>
         </form>
         {message && <p className={styles.error}>{message}</p>}
