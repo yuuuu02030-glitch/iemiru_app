@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class CustomerService {
@@ -56,6 +58,17 @@ public class CustomerService {
                 saveCustomer.getPhone());
     }
 
+    private static final Pattern AREA_PATTERN = Pattern.compile("^.{2,}?[市区町村]");
+
+    private String toArea(String address) {
+        Matcher matcher = AREA_PATTERN.matcher(address);
+
+        if(matcher.find()) {
+            return matcher.group();
+        }
+        return address;
+    }
+
     public CustomerSummaryResponse findSummary(Integer id) {
 
         Customer customer = customerRepository.findById(id)
@@ -63,7 +76,7 @@ public class CustomerService {
 
         return new CustomerSummaryResponse(
                 customer.getName(),
-                customer.getAddress(),
+                toArea(customer.getAddress()),
                 customer.getBuildType(),
                 customer.getBuildTiming(),
                 customer.getBuildArea(),
@@ -147,4 +160,6 @@ public class CustomerService {
 
         return new MessageResponse("顧客情報を削除しました");
     }
+
+
 }
