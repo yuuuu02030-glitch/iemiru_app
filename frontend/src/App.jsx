@@ -8,6 +8,7 @@ import AdminMenuPage from "./pages/admin/AdminMenuPage";
 import AdminReservationsPage from "./pages/admin/AdminReservationsPage";
 import AdminCustomerSummaryPage from "./pages/admin/AdminCustomerSummaryPage";
 import AdminCustomersPage from "./pages/admin/AdminCustomersPage";
+import AdminCustomerDetailPage from "./pages/admin/AdminCustomerDetailPage";
 import AdminNewCustomersPage from "./pages/admin/AdminNewCustomersPage";
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
           element={<AdminCustomerSummaryPage />}
         />
         <Route path="/admin/customers" element={<AdminCustomersPage />} />
+        <Route
+          path="/admin/customers/:id"
+          element={<AdminCustomerDetailPage />}
+        />
         <Route
           path="/admin/customers/new"
           element={<AdminNewCustomersPage />}
