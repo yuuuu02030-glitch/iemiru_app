@@ -86,3 +86,49 @@
   font-size: 15px;
   color: var(--text-sub);
 }
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+}
+
+.outlineButton {
+  height: 60px;
+  padding: 0 28px;
+  margin: 15px;
+  border: 2px solid var(--navy);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dangerButton {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 4fr 5fr;
+  gap: 36px;
+  max-width: 1180px;
+  align-items: start;
+}
+
+.subTitle {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.center {
+  text-align: center !important;
+}
