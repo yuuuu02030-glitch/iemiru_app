@@ -1,42 +1,18 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
+import { useMe } from "../../hooks/useMe.js";
 import AdminHeader from "../../components/AdminHeader";
 import styles from "./AdminMenuPage.module.css";
 
 function AdminMenuPage() {
-  const [me, setMe] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const loadMe = async () => {
-      const res = await fetch("/api/me");
-
-      if (!res.ok) {
-        navigate("/admin/login");
-        return;
-      }
-
-      const data = await res.json();
-      setMe(data);
-    };
-
-    loadMe();
-  }, []);
+  const { me, roleLabel, logout } = useMe();
 
   if (me === null) {
     return null;
   }
 
-  const roleLabel = me.role === "管理職" ? "管理職" : "スタッフ";
-
-  const handleLogout = async () => {
-    await fetch("/api/logout", { method: "POST" });
-    navigate("/admin/login", { replace: true });
-  };
-
   return (
     <>
-      <AdminHeader roleLabel={roleLabel} onLogout={handleLogout} />
+      <AdminHeader roleLabel={roleLabel} onLogout={logout} />
 
       <main className={styles.main}>
         <h2 className={styles.title}>メニュー</h2>
