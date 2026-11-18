@@ -1,0 +1,39 @@
+.main {
+  padding: 48px 56px;
+}
+
+.title {
+  margin: 0 0 24px;
+  font-size: 28px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.card {
+  padding: 28px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+.card:hover {
+  border-color: var(--navy);
+}
+
+.cardTitle {
+  margin: 0 0 6px;
+  font-size: 22px;
+}
+
+.cardText {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-sub);
+}

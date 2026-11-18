@@ -5,6 +5,9 @@ import ReserveCompletePage from "./pages/ReserveCompletePage";
 import VisitRecordPage from "./pages/VisitRecordPage";
 import LoginPage from "./pages/admin/LoginPage";
 import AdminMenuPage from "./pages/admin/AdminMenuPage";
+import AdminReservationsPage from "./pages/admin/AdminReservationsPage";
+import AdminCustomersPage from "./pages/admin/AdminCustomersPage";
+import AdminNewCustomersPage from "./pages/admin/AdminNewCustomersPage";
 
 function App() {
   return (
@@ -16,6 +19,12 @@ function App() {
         <Route path="/visit-record" element={<VisitRecordPage />} />
         <Route path="/admin/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminMenuPage />} />
+        <Route path="/admin/reservations" element={<AdminReservationsPage />} />
+        <Route path="/admin/customers" element={<AdminCustomersPage />} />
+        <Route
+          path="/admin/customers/new"
+          element={<AdminNewCustomersPage />}
+        />
       </Routes>
     </BrowserRouter>
   );
