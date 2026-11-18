@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useMe } from "../../hooks/useMe";
 import AdminHeader from "../../components/AdminHeader";
+import admin from "../../style/admin.module.css";
 
 function AdminReservationsPage() {
   const [reservations, setReservations] = useState([]);
@@ -24,23 +25,25 @@ function AdminReservationsPage() {
     <>
       <AdminHeader roleLabel={roleLabel} onLogout={logout} />
 
-      <main>
-        <h2>予約一覧</h2>
+      <main className={admin.main}>
+        <h2 className={admin.title}>予約一覧</h2>
 
-        <section>
-          <p>日付</p>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-          <p>{reservations.length}件の予約</p>
-        </section>
+        <div className={admin.dateRow}>
+          <label className={admin.dateField}>
+            日付
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </label>
+          <p className={admin.count}>{reservations.length}件の予約</p>
+        </div>
 
         {reservations.length === 0 ? (
-          <p>この日の予約はありません</p>
+          <p className={admin.empty}>この日の予約はありません</p>
         ) : (
-          <table>
+          <table className={admin.table}>
             <thead>
               <tr>
                 <th>来場時刻</th>
@@ -50,12 +53,15 @@ function AdminReservationsPage() {
             </thead>
             <tbody>
               {reservations.map((r) => (
-                <tr key={r.reservationsId}>
+                <tr key={r.reservationId}>
                   <td>{r.visitDatetime.slice(11, 16)}</td>
                   <td>{r.name}様</td>
-                  <td>
-                    <Link to={`/admin/customers/${r.customerId}/summary`}>
-                      詳細
+                  <td className={admin.right}>
+                    <Link
+                      to={`/admin/customers/${r.customerId}/summary`}
+                      className={admin.detailLink}
+                    >
+                      詳細 ›
                     </Link>
                   </td>
                 </tr>
@@ -64,7 +70,9 @@ function AdminReservationsPage() {
           </table>
         )}
 
-        <Link to="/admin">管理者画面へ戻る</Link>
+        <Link to="/admin" className={admin.backLink}>
+          管理者画面へ戻る
+        </Link>
       </main>
     </>
   );
