@@ -1,0 +1,48 @@
+.main {
+  padding: 80px 24px;
+}
+
+.card {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 40px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+.field input {
+  height: 52px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: white;
+  color: var(--text);
+}
+
+.error {
+  margin: 0;
+  color: var(--error);
+  font-size: 13px;
+}
+
+.backLink {
+  align-self: flex-start;
+  font-size: 14px;
+}
