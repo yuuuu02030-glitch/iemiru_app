@@ -120,7 +120,7 @@
   display: grid;
   grid-template-columns: 4fr 5fr;
   gap: 36px;
-  max-width: 1180px;
+  max-width: 1300px;
   align-items: start;
 }
 

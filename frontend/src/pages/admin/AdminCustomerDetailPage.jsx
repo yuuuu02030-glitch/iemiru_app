@@ -26,6 +26,15 @@ function AdminCustomerDetailPage() {
     loadCustomer();
   }, [navigate, id]);
 
+  const handleDelete = async () => {
+    const ok = window.confirm(`${customer.name}様の顧客情報を削除しますか？`);
+    if (!ok) return;
+
+    await fetch(`/api/customers/${id}`, { method: "DELETE" });
+
+    navigate("/admin/customers", { replace: true });
+  };
+
   if (me === null || customer === null) {
     return null;
   }
@@ -43,6 +52,7 @@ function AdminCustomerDetailPage() {
             </button>
             <button
               type="button"
+              onClick={handleDelete}
               className={`${admin.outlineButton} ${admin.dangerButton}`}
             >
               削除
