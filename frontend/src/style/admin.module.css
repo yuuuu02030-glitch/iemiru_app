@@ -93,11 +93,6 @@
   align-items: center;
 }
 
-.actions {
-  display: flex;
-  gap: 14px;
-}
-
 .outlineButton {
   height: 60px;
   padding: 0 28px;
@@ -131,4 +126,27 @@
 
 .center {
   text-align: center !important;
+}
+
+.table input,
+.table select {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.fieldError {
+  margin: 4px 0 0;
+  color: var(--error);
+  font-size: 12px;
+}
+
+.filledButton {
+  background: var(--navy);
+  color: #fff;
 }
