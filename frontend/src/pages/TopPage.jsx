@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import styles from "./TopPage.module.css";
-import { houseColor } from "../constants/houseColor";
+import HouseCard from "../components/HouseCard";
 
 function TopPage() {
   const [houses, setHouses] = useState([]);
@@ -45,17 +45,7 @@ function TopPage() {
           <ul className={styles.houseList}>
             {houses.map((house) => (
               <li key={house.houseId}>
-                <article
-                  className={styles.houseCard}
-                  style={{ "--house-color": houseColor[house.houseId] }}
-                >
-                  <p className={styles.houseNo}>
-                    No.{house.houseId} <span className={styles.dot}></span>{" "}
-                    {house.companyName}
-                  </p>
-                  <h3 className={styles.houseName}>{house.houseName}</h3>
-                  <p className={styles.description}>{house.description}</p>
-                </article>
+                <HouseCard house={house} />
               </li>
             ))}
           </ul>
