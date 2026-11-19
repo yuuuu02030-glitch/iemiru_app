@@ -30,19 +30,49 @@ function HouseCard({ house }) {
       </p>
       <h3 className={styles.houseName}>{house.houseName}</h3>
 
-      <div>
-        <button type="button" onClick={prev}>
+      <div className={styles.carousel}>
+        <img
+          src={images[index]}
+          alt={`${house.houseName}の写真`}
+          className={styles.photo}
+        />
+        <button
+          type="button"
+          onClick={prev}
+          className={`${styles.arrow} ${styles.prev}`}
+          aria-label="前の写真"
+        >
           ‹
         </button>
-        <p>
-          {index + 1} / {images.length}
-        </p>
-        <img src={images[index]} alt={`${house.houseName}の写真`} />
-        <button type="button" onClick={next}>
+        <button
+          type="button"
+          onClick={next}
+          className={`${styles.arrow} ${styles.next}`}
+          aria-label="次の写真"
+        >
           ›
         </button>
-        <p className={styles.description}>{house.description}</p>
+        <p className={styles.counter}>
+          {index + 1} / {images.length}
+        </p>
       </div>
+
+      {/* サムネイル4枚 */}
+      <div className={styles.thumbs}>
+        {images.map((src, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => setIndex(i)}
+            className={`${styles.thumb} ${index === i ? styles.selected : ""}`}
+            aria-label={`${i + 1}枚目の写真を表示`}
+          >
+            <img src={src} alt="" />
+          </button>
+        ))}
+      </div>
+
+      <p className={styles.description}>{house.description}</p>
     </article>
   );
 }
