@@ -14,7 +14,7 @@ public class CustomerDetailResponse {
 
     private String name;
 
-    private String Address;
+    private String address;
 
     private String phone;
 
