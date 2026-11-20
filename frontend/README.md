@@ -31,13 +31,13 @@ CSVでお客様の情報を探すのも一苦労でした。
 
 ## 画面
 
-| 管理者画面 |
-| ---------- |
+### お客様画面（スマホ）
 
-![トップ](docs/images/top.png) ![予約](docs/images/reserve.png)![見学記録](docs/images/visit-record.png)
+| トップ                         | 予約                             | 見学記録                                  |
+| ------------------------------ | -------------------------------- | ----------------------------------------- |
+| ![トップ](docs/images/top.png) | ![予約](docs/images/reserve.png) | ![見学記録](docs/images/visit-record.png) |
 
-| 管理者画面 |
-| ---------- |
+### スタッフ画面（PC）
 
 ![管理者画面（管理職）](docs/images/admin.png)
 
