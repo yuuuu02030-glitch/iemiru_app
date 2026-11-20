@@ -1,16 +1,105 @@
-# React + Vite
+# イエミル住宅総合展示場 来場予約システム
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+住宅総合展示場の来場予約・見学記録と、スタッフ向けの顧客管理ができるWebアプリです。
 
-Currently, two official plugins are available:
+## 作った背景
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+住宅営業の仕事をしていた際に、住宅総合展示場を地域の工務店と合同で運営していました。
+お客様は紙に情報を書き、その情報を手入力でスプレッドシートに打ち込む作業を行っていました。
+CSVでお客様の情報を探すのも一苦労でした。
+こういった、お客様や働く人たちの負担を減らせるようなアプリを作ろうと思い制作しました。
 
-## React Compiler
+## 主な機能
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### お客様
 
-## Expanding the ESLint configuration
+- モデルハウス一覧の閲覧
+- 来場予約
+- 見学記録の登録
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### スタッフ（一般職・管理職）
+
+- ログイン・ログアウト
+- 予約状況確認
+- 簡易的な顧客情報の確認
+- 顧客情報の登録
+
+### 管理職のみ
+
+- 顧客情報一覧確認
+- 顧客詳細情報の確認・編集・削除
+
+## 画面
+
+| お客様画面                     |                                  |                                           |
+| ------------------------------ | -------------------------------- | ----------------------------------------- |
+| ![トップ](docs/images/top.png) | ![予約](docs/images/reserve.png) | ![見学記録](docs/images/visit-record.png) |
+
+| 管理者画面 |
+| ---------- |
+
+![管理者画面（管理職）](docs/images/admin.png)
+
+![顧客詳細（管理職）](docs/images/customer.png)
+
+## 使用技術
+
+| 分類           | 技術                          |
+| -------------- | ----------------------------- |
+| フロントエンド | React                         |
+| バックエンド   | Java / Spring Boot 4          |
+| データベース   | MySQL                         |
+| 設計・その他   | Figma / Postman / Git・GitHub |
+
+## 工夫したところ
+
+- **一般職と管理職で、見られる画面とデータを分けた**
+  実際の展示場では、受付スタッフと管理する人で必要な情報が違うため。
+  画面のボタンを隠すだけでなく、サーバー側（Spring Security）でも権限をチェックし、
+  一般職がURLを直接打っても顧客一覧などは見られないようにした。
+
+- **簡易顧客詳細の住所は、サーバー側で市区町村までに切って送る**
+  一般職は、接客に必要な「どの地域のお客様か」がわかれば十分なため。
+  画面で隠すだけだと、ブラウザの開発者ツールで住所が全部見えてしまうので、
+  そもそも住所を全部送らないようにした。
+
+- **予約時に8棟分の見学記録を作っておき、当日は受付番号と電話番号で記録できる**
+  お客様がログインしなくても、その場でスマホから記録できるようにするため。
+  受付番号だけだと他人の記録を書き換えられてしまうので、電話番号と両方そろったときだけ確認・登録できるようにした。
+
+## 起動方法
+
+必要なもの：Docker、Java 21、Node.js
+
+1. 環境変数ファイルを作る
+   ```bash
+   cp .env.example .env
+   ```
+2. データベースを起動する（初回は自動でテーブルとサンプルデータが入ります）
+   ```bash
+   docker compose up -d
+   ```
+3. バックエンドを起動する（http://localhost:8080）
+   ```bash
+   cd backend
+   ./mvnw spring-boot:run
+   ```
+4. フロントエンドを起動する（http://localhost:5173）
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+## ログイン情報（動作確認用）
+
+| ID      | パスワード | 権限   |
+| ------- | ---------- | ------ |
+| staff   | staff      | 一般職 |
+| manager | manager    | 管理職 |
+
+## 今後の課題
+
+- 会社ごとの訪問数とお気に入り・来場動機のグラフ化
+- CSRF対策（現在は無効にしている）
+- テストコードの追加
