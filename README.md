@@ -33,15 +33,15 @@ CSVでお客様の情報を探すのも一苦労でした。
 
 ### お客様画面（スマホ）
 
-| トップ                         | 予約                             | 見学記録                                  |
-| ------------------------------ | -------------------------------- | ----------------------------------------- |
-| ![トップ](docs/images/top.png) | ![予約](docs/images/reserve.png) | ![見学記録](docs/images/visit-record.png) |
+| トップ                                             | 予約                                                 | 見学記録                                                      |
+| -------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------- |
+| ![トップ](iemiru_app/frontend/docs/images/top.png) | ![予約](iemiru_app/frontend/docs/images/reserve.png) | ![見学記録](iemiru_app/frontend/docs/images/visit-record.png) |
 
 ### スタッフ画面（PC）
 
-![管理者画面（管理職）](docs/images/admin.png)
+![管理者画面（管理職）](iemiru_app/frontend/docs/images/admin.png)
 
-![顧客詳細（管理職）](docs/images/customer.png)
+![顧客詳細（管理職）](iemiru_app/frontend/docs/images/customer.png)
 
 ## 使用技術
 
